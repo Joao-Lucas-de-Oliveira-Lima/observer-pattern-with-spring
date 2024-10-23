@@ -27,7 +27,7 @@ public class EventController {
     public ResponseEntity<Page<EventResponseDTO>> findByNameContainingIgnoreCase(
             @RequestParam(name = "name", defaultValue = "")
             String name,
-            @PageableDefault(size = 20, page = 0, direction = Sort.Direction.ASC, sort = {"name"})
+            @PageableDefault(size = 20, direction = Sort.Direction.ASC, sort = {"name"})
             Pageable pageable) {
         Page<EventResponseDTO> page = eventService.findByNameContainingIgnoreCase(name, pageable);
         return ResponseEntity

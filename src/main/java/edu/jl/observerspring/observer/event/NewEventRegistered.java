@@ -3,9 +3,9 @@ package edu.jl.observerspring.observer.event;
 import edu.jl.observerspring.model.EventModel;
 import org.springframework.context.ApplicationEvent;
 
-public class EventModelCreated extends ApplicationEvent {
+public class NewEventRegistered extends ApplicationEvent {
     private final EventModel eventModel;
-    public EventModelCreated(Object source, EventModel eventModel) {
+    public NewEventRegistered(Object source, EventModel eventModel) {
         super(source);
         this.eventModel = eventModel;
     }

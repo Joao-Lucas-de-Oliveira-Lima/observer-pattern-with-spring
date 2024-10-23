@@ -14,9 +14,9 @@ public class EventMapper {
                 eventModel.getNumberOfTickets());
     }
     public EventModel mapToEventModel(EventSaveDTO eventSaveDTO){
-        EventModel eventModel = new EventModel();
-        eventModel.setName(eventSaveDTO.name());
-        eventModel.setNumberOfTickets(eventSaveDTO.numberOfTickets());
-        return eventModel;
+        return EventModel.builder()
+                .name(eventSaveDTO.name())
+                .numberOfTickets(eventSaveDTO.numberOfTickets())
+                .build();
     }
 }

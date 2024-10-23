@@ -13,6 +13,7 @@ public class TicketModel {
     @Column(name = "ticket_id")
     private UUID id;
     private Integer number;
+    @Column(name = "ticket_value")
     private Double value;
     private Boolean sold;
     @ManyToOne
@@ -22,7 +23,8 @@ public class TicketModel {
     public TicketModel() {
     }
 
-    public TicketModel(Integer number, Double value, Boolean sold, EventModel event) {
+    private TicketModel(UUID id, Integer number, Double value, Boolean sold, EventModel event) {
+        this.id = id;
         this.number = number;
         this.value = value;
         this.sold = sold;
@@ -80,5 +82,46 @@ public class TicketModel {
     @Override
     public int hashCode() {
         return Objects.hash(id, number, value, sold, event);
+    }
+
+    public static TicketBuilder builder() {
+        return new TicketBuilder();
+    }
+
+    public static class TicketBuilder {
+        private UUID id = null;
+        private Integer number = null;
+        private Double value = null;
+        private Boolean sold = null;
+        private EventModel event = null;
+
+        public TicketBuilder id(UUID id) {
+            this.id = id;
+            return this;
+        }
+
+        public TicketBuilder number(Integer number) {
+            this.number = number;
+            return this;
+        }
+
+        public TicketBuilder value(Double value) {
+            this.value = value;
+            return this;
+        }
+
+        public TicketBuilder sold(Boolean sold) {
+            this.sold = sold;
+            return this;
+        }
+
+        public TicketBuilder event(EventModel event) {
+            this.event = event;
+            return this;
+        }
+
+        public TicketModel build() {
+            return new TicketModel(this.id, this.number, this.value, this.sold, this.event);
+        }
     }
 }

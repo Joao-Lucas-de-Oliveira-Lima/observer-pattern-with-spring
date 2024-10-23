@@ -24,7 +24,8 @@ public class EventModel {
     @OneToOne(mappedBy = "event")
     private FinancialReportModel financialReport;
 
-    public EventModel(String name, Integer numberOfTickets, List<TicketModel> tickets, FinancialReportModel financialReport) {
+    private EventModel(UUID id, String name, Integer numberOfTickets, List<TicketModel> tickets, FinancialReportModel financialReport) {
+        this.id = id;
         this.name = name;
         this.numberOfTickets = numberOfTickets;
         this.tickets = tickets;
@@ -85,5 +86,47 @@ public class EventModel {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, numberOfTickets, tickets, financialReport);
+    }
+
+    public static EventBuilder builder() {
+        return new EventBuilder();
+    }
+
+    public static class EventBuilder {
+        private UUID id = null;
+        private String name = null;
+        private Integer numberOfTickets = null;
+        private List<TicketModel> tickets = null;
+        private FinancialReportModel financialReport = null;
+
+        public EventBuilder id(UUID id) {
+            this.id = id;
+            return this;
+        }
+
+        public EventBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public EventBuilder numberOfTickets(Integer numberOfTickets) {
+            this.numberOfTickets = numberOfTickets;
+            return this;
+        }
+
+        public EventBuilder tickets(List<TicketModel> tickets) {
+            this.tickets = tickets;
+            return this;
+        }
+
+        public EventBuilder financialReport(FinancialReportModel financialReport) {
+            this.financialReport = financialReport;
+            return this;
+        }
+
+        public EventModel build() {
+            return new EventModel(id, name, numberOfTickets, tickets, financialReport);
+        }
+
     }
 }
