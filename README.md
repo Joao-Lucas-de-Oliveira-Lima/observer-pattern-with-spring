@@ -22,13 +22,15 @@ Additionally, when a ticket is updated, an event is triggered and handled by the
 
 ### Running the Application with Maven
 
-1. **Build the Application**  
+1. **Build the Application**
+  
 In the project root directory, run the following command to start building the project:
 ```bash
 mvn clean install -DskipTests
 ```
 
 2. **Run the Application**
+
 To start the application, use the command:
 ```bash
 mvn spring-boot:run
