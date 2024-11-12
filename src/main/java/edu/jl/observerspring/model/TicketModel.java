@@ -17,18 +17,18 @@ public class TicketModel {
     private Double value;
     private Boolean sold;
     @ManyToOne
-    @JoinColumn(name = "event_id")
-    private EventModel event;
+    @JoinColumn(name = "rodeo_event_id")
+    private RodeoEventModel rodeoEvent;
 
     public TicketModel() {
     }
 
-    private TicketModel(UUID id, Integer number, Double value, Boolean sold, EventModel event) {
+    private TicketModel(UUID id, Integer number, Double value, Boolean sold, RodeoEventModel rodeoEvent) {
         this.id = id;
         this.number = number;
         this.value = value;
         this.sold = sold;
-        this.event = event;
+        this.rodeoEvent = rodeoEvent;
     }
 
     public UUID getId() {
@@ -63,12 +63,12 @@ public class TicketModel {
         this.sold = sold;
     }
 
-    public EventModel getEvent() {
-        return event;
+    public RodeoEventModel getEvent() {
+        return rodeoEvent;
     }
 
-    public void setEvent(EventModel event) {
-        this.event = event;
+    public void setEvent(RodeoEventModel rodeoEvent) {
+        this.rodeoEvent = rodeoEvent;
     }
 
     @Override
@@ -76,12 +76,12 @@ public class TicketModel {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         TicketModel that = (TicketModel) object;
-        return Objects.equals(id, that.id) && Objects.equals(number, that.number) && Objects.equals(value, that.value) && Objects.equals(sold, that.sold) && Objects.equals(event, that.event);
+        return Objects.equals(id, that.id) && Objects.equals(number, that.number) && Objects.equals(value, that.value) && Objects.equals(sold, that.sold) && Objects.equals(rodeoEvent, that.rodeoEvent);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, number, value, sold, event);
+        return Objects.hash(id, number, value, sold, rodeoEvent);
     }
 
     public static TicketBuilder builder() {
@@ -93,7 +93,7 @@ public class TicketModel {
         private Integer number = null;
         private Double value = null;
         private Boolean sold = null;
-        private EventModel event = null;
+        private RodeoEventModel rodeoEvent = null;
 
         public TicketBuilder id(UUID id) {
             this.id = id;
@@ -115,13 +115,13 @@ public class TicketModel {
             return this;
         }
 
-        public TicketBuilder event(EventModel event) {
-            this.event = event;
+        public TicketBuilder rodeoEvent(RodeoEventModel rodeoEvent) {
+            this.rodeoEvent = rodeoEvent;
             return this;
         }
 
         public TicketModel build() {
-            return new TicketModel(this.id, this.number, this.value, this.sold, this.event);
+            return new TicketModel(this.id, this.number, this.value, this.sold, this.rodeoEvent);
         }
     }
 }

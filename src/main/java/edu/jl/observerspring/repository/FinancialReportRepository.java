@@ -7,5 +7,5 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface FinancialReportRepository extends JpaRepository<FinancialReportModel, UUID> {
-    Optional<FinancialReportModel> findByEventId(UUID eventId);
+    Optional<FinancialReportModel> findByRodeoEventId(UUID rodeoEventId);
 }

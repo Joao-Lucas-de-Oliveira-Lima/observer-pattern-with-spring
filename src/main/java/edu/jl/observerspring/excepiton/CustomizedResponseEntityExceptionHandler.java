@@ -1,6 +1,6 @@
 package edu.jl.observerspring.excepiton;
 
-import edu.jl.observerspring.dto.exception.GenericExceptionDTO;
+import edu.jl.observerspring.dto.exception.GenericExceptionResponseDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,13 +15,13 @@ import java.util.Date;
 @ControllerAdvice
 public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<GenericExceptionDTO> handlerExceptions(
+    public ResponseEntity<GenericExceptionResponseDTO> handlerExceptions(
             WebRequest webRequest,
             Exception exception)
     {
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new GenericExceptionDTO(
+                .body(new GenericExceptionResponseDTO(
                         new Date(),
                         webRequest.getDescription(false),
                         exception.getMessage()));

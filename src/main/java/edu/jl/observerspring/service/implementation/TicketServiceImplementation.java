@@ -1,11 +1,11 @@
 package edu.jl.observerspring.service.implementation;
 
 import edu.jl.observerspring.dto.ticket.TicketResponseDTO;
-import edu.jl.observerspring.dto.ticket.TicketSaveDTO;
+import edu.jl.observerspring.dto.ticket.TicketRequestDTO;
 import edu.jl.observerspring.mapper.TicketMapper;
-import edu.jl.observerspring.model.EventModel;
+import edu.jl.observerspring.model.RodeoEventModel;
 import edu.jl.observerspring.model.TicketModel;
-import edu.jl.observerspring.observer.event.NewEventRegistered;
+import edu.jl.observerspring.observer.event.NewRodeoEventRegistered;
 import edu.jl.observerspring.observer.event.TicketPurchased;
 import edu.jl.observerspring.repository.TicketRepository;
 import edu.jl.observerspring.service.TicketService;
@@ -15,8 +15,6 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.event.TransactionPhase;
-import org.springframework.transaction.event.TransactionalEventListener;
 
 import java.util.List;
 import java.util.UUID;
@@ -36,14 +34,14 @@ public class TicketServiceImplementation implements TicketService {
     }
 
     @Override
-    public List<TicketResponseDTO> findByEventId(UUID eventId) {
-        List<TicketModel> ticketModels  = ticketRepository.findByEventId(eventId);
+    public List<TicketResponseDTO> findByRodeoEventId(UUID eventId) {
+        List<TicketModel> ticketModels  = ticketRepository.findByRodeoEventId(eventId);
         return ticketModels.stream().map(ticketMapper::mapToResponseDTO).toList();
     }
 
     @Override
     @Transactional
-    public TicketResponseDTO updateTicket(UUID id, TicketSaveDTO updatedTicketData) throws RuntimeException{
+    public TicketResponseDTO updateTicket(UUID id, TicketRequestDTO updatedTicketData){
         TicketModel ticketToBeUpdated = ticketRepository.findById(id)
                 .orElseThrow();
         BeanUtils.copyProperties(updatedTicketData, ticketToBeUpdated);
@@ -57,18 +55,18 @@ public class TicketServiceImplementation implements TicketService {
     }
 
     @EventListener
-    public void handlerEventModelCreated(NewEventRegistered systemEventListened) {
-        createEventTicketsWithDefaultValues(systemEventListened.getEventModel());
+    public void handlerEventModelCreated(NewRodeoEventRegistered newRodeoEventRegistered) {
+        createRodeoEventTicketsWithDefaultValues(newRodeoEventRegistered.getRodeoEvent());
     }
 
-    private void createEventTicketsWithDefaultValues(EventModel eventModel) {
-        Integer totalNumberOfEventTickets = eventModel.getNumberOfTickets();
+    private void createRodeoEventTicketsWithDefaultValues(RodeoEventModel rodeoEvent) {
+        Integer totalNumberOfEventTickets = rodeoEvent.getNumberOfTickets();
         List<TicketModel> eventTickets =
                 IntStream.rangeClosed(1, totalNumberOfEventTickets)
                         .mapToObj(ticketNumber -> TicketModel.builder()
                                 .number(ticketNumber)
                                 .sold(false)
-                                .event(eventModel)
+                                .rodeoEvent(rodeoEvent)
                                 .build()).toList();
         ticketRepository.saveAll(eventTickets);
     }

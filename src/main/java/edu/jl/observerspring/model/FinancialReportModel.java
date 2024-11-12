@@ -15,16 +15,16 @@ public class FinancialReportModel {
     private Integer totalTicketsSold;
     private Double amountCollected;
     @OneToOne
-    @JoinColumn(name = "event_id")
-    private EventModel event;
+    @JoinColumn(name = "rodeo_event_id")
+    private RodeoEventModel rodeoEvent;
 
     public FinancialReportModel() {
     }
 
-    public FinancialReportModel(Integer totalTicketsSold, Double amountCollected, EventModel event) {
+    public FinancialReportModel(Integer totalTicketsSold, Double amountCollected, RodeoEventModel rodeoEvent) {
         this.totalTicketsSold = totalTicketsSold;
         this.amountCollected = amountCollected;
-        this.event = event;
+        this.rodeoEvent = rodeoEvent;
     }
 
     public UUID getId() {
@@ -51,12 +51,12 @@ public class FinancialReportModel {
         this.amountCollected = amountCollected;
     }
 
-    public EventModel getEvent() {
-        return event;
+    public RodeoEventModel getEvent() {
+        return rodeoEvent;
     }
 
-    public void setEvent(EventModel event) {
-        this.event = event;
+    public void setEvent(RodeoEventModel rodeoEvent) {
+        this.rodeoEvent = rodeoEvent;
     }
 
     @Override
@@ -64,11 +64,11 @@ public class FinancialReportModel {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         FinancialReportModel that = (FinancialReportModel) object;
-        return Objects.equals(id, that.id) && Objects.equals(totalTicketsSold, that.totalTicketsSold) && Objects.equals(amountCollected, that.amountCollected) && Objects.equals(event, that.event);
+        return Objects.equals(id, that.id) && Objects.equals(totalTicketsSold, that.totalTicketsSold) && Objects.equals(amountCollected, that.amountCollected) && Objects.equals(rodeoEvent, that.rodeoEvent);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, totalTicketsSold, amountCollected, event);
+        return Objects.hash(id, totalTicketsSold, amountCollected, rodeoEvent);
     }
 }

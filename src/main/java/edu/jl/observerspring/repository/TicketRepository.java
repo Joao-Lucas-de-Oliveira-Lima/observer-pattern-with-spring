@@ -7,5 +7,5 @@ import java.util.List;
 import java.util.UUID;
 
 public interface TicketRepository extends JpaRepository<TicketModel, UUID> {
-    List<TicketModel> findByEventId(UUID eventId);
+    List<TicketModel> findByRodeoEventId(UUID rodeoEventId);
 }

@@ -8,23 +8,23 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "events")
-public class EventModel {
+public class RodeoEventModel {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "event_id")
+    @Column(name = "rodeo_event_id")
     private UUID id;
 
     private String name;
     @Column(name = "number_of_tickets")
     private Integer numberOfTickets;
 
-    @OneToMany(mappedBy = "event")
+    @OneToMany(mappedBy = "rodeoEvent")
     private List<TicketModel> tickets;
 
-    @OneToOne(mappedBy = "event")
+    @OneToOne(mappedBy = "rodeoEvent")
     private FinancialReportModel financialReport;
 
-    private EventModel(UUID id, String name, Integer numberOfTickets, List<TicketModel> tickets, FinancialReportModel financialReport) {
+    private RodeoEventModel(UUID id, String name, Integer numberOfTickets, List<TicketModel> tickets, FinancialReportModel financialReport) {
         this.id = id;
         this.name = name;
         this.numberOfTickets = numberOfTickets;
@@ -32,7 +32,7 @@ public class EventModel {
         this.financialReport = financialReport;
     }
 
-    public EventModel() {
+    public RodeoEventModel() {
     }
 
     public UUID getId() {
@@ -79,7 +79,7 @@ public class EventModel {
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
-        EventModel that = (EventModel) object;
+        RodeoEventModel that = (RodeoEventModel) object;
         return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(numberOfTickets, that.numberOfTickets) && Objects.equals(tickets, that.tickets) && Objects.equals(financialReport, that.financialReport);
     }
 
@@ -124,8 +124,8 @@ public class EventModel {
             return this;
         }
 
-        public EventModel build() {
-            return new EventModel(id, name, numberOfTickets, tickets, financialReport);
+        public RodeoEventModel build() {
+            return new RodeoEventModel(id, name, numberOfTickets, tickets, financialReport);
         }
 
     }

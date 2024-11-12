@@ -1,8 +1,8 @@
-package edu.jl.observerspring.dto.event;
+package edu.jl.observerspring.dto.rodeoevent;
 
 import java.util.UUID;
 
-public record EventResponseDTO(
+public record RodeoEventResponseDTO(
         UUID id,
         String name,
         Integer numberOfTickets) {
