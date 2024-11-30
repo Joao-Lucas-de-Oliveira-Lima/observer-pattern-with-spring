@@ -1,4 +1,4 @@
-# Rodeo Event Registration API
+# Observer Pattern with Spring: Rodeo Event Registration API
 
 A REST API built with **Spring** to manage rodeo events, financial reports, and ticket information. This project demonstrates the implementation of the **Observer Design Pattern**, leveraging Spring's `ApplicationEvent`, `ApplicationEventPublisher`, and `EventListener` to enable decoupled communication between services.
 
