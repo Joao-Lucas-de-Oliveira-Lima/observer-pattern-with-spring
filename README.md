@@ -63,7 +63,7 @@ To execute integration tests:
 mvn verify -Pfailsafe
 ```
 
-## Api Documentation
+## API Documentation
 
 ### Main Endpoints
 
